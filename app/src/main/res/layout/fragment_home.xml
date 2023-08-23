@@ -75,6 +75,7 @@
                     android:id="@+id/img_random_meal"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="@color/accent"
                     android:scaleType="centerCrop" />
             </androidx.cardview.widget.CardView>
 
