@@ -3,6 +3,7 @@ package com.example.androidfoodapp.retrofit
 import com.example.androidfoodapp.pojo.CategoryList
 import com.example.androidfoodapp.pojo.MealsByCategoryList
 import com.example.androidfoodapp.pojo.MealList
+import com.example.androidfoodapp.pojo.MealsByCategory
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -20,4 +21,7 @@ interface MealApi {
 
     @GET("categories.php")
     fun getCategories(): Call<CategoryList>
+
+    @GET("filter.php")
+    fun getMealsByCategory(@Query("c") categoryName: String): Call<MealsByCategoryList>
 }
