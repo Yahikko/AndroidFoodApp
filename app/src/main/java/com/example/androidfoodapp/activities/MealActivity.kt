@@ -60,7 +60,7 @@ class MealActivity : AppCompatActivity() {
             binding.tvArea.text = "Category: ${meal?.strArea}"
             binding.tvInstructionsSteps.text = "Category: ${meal?.strInstructions}"
 
-            youtubeLing = meal.strYoutube
+            youtubeLing = meal.strYoutube ?: ""
         }
     }
 
