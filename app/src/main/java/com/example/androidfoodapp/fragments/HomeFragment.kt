@@ -6,11 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.androidfoodapp.activities.CategoryMealsActivity
+import com.example.androidfoodapp.activities.MainActivity
 import com.example.androidfoodapp.activities.MealActivity
 import com.example.androidfoodapp.adapters.CategoriesAdapter
 import com.example.androidfoodapp.adapters.MostPopularAdapter
@@ -22,12 +22,12 @@ import com.example.androidfoodapp.viewModel.HomeViewModel
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
-    private lateinit var randomMeal: Meal
+    private lateinit var homeViewModel: HomeViewModel
 
     private lateinit var popularItemsAdapter: MostPopularAdapter
     private lateinit var categoriesAdapter: CategoriesAdapter
 
-    private val homeViewModel by viewModels<HomeViewModel>()
+    private lateinit var randomMeal: Meal
 
     companion object {
         const val MEAL_ID = "com.example.androidfoodapp.fragments.idMeal"
@@ -41,6 +41,8 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
+
+        homeViewModel = (activity as MainActivity).viewModel
 
         popularItemsAdapter = MostPopularAdapter()
         categoriesAdapter = CategoriesAdapter()
