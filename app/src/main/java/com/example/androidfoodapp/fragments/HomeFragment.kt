@@ -15,6 +15,7 @@ import com.example.androidfoodapp.activities.MealActivity
 import com.example.androidfoodapp.adapters.CategoriesAdapter
 import com.example.androidfoodapp.adapters.MostPopularAdapter
 import com.example.androidfoodapp.databinding.FragmentHomeBinding
+import com.example.androidfoodapp.fragments.bottomsheet.MealBottomSheetFragment
 import com.example.androidfoodapp.pojo.MealsByCategory
 import com.example.androidfoodapp.pojo.Meal
 import com.example.androidfoodapp.viewModel.HomeViewModel
@@ -67,6 +68,15 @@ class HomeFragment : Fragment() {
         homeViewModel.getCategories()
         observeCategoriesLiveData()
         onCategoryClick()
+
+        onPopularItemLongClick()
+    }
+
+    private fun onPopularItemLongClick() {
+        popularItemsAdapter.onLongItemClick = { meal ->
+            val mealBottomSheetFragment = MealBottomSheetFragment.newInstance(meal.idMeal)
+            mealBottomSheetFragment.show(childFragmentManager, "Meal Info")
+        }
     }
 
     private fun onCategoryClick() {
