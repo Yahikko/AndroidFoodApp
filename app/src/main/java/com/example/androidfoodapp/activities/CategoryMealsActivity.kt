@@ -1,5 +1,6 @@
 package com.example.androidfoodapp.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.androidfoodapp.adapters.CategoryMealsAdapter
 import com.example.androidfoodapp.databinding.ActivityCategoryMealsBinding
 import com.example.androidfoodapp.fragments.HomeFragment
+import com.example.androidfoodapp.pojo.Meal
 import com.example.androidfoodapp.viewModel.CategoryMealsViewModel
 
 class CategoryMealsActivity : AppCompatActivity() {
@@ -15,7 +17,7 @@ class CategoryMealsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCategoryMealsBinding
 
     lateinit var categoryMealsAdapter: CategoryMealsAdapter
-    lateinit var mealName: String
+    private lateinit var mealName: String
 
     private val categoryMealsViewModel by viewModels<CategoryMealsViewModel>()
 
@@ -24,11 +26,23 @@ class CategoryMealsActivity : AppCompatActivity() {
         binding = ActivityCategoryMealsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        mealName = intent.getStringExtra(HomeFragment.CATEGORY_NAME)!!
         prepareRecyclerView()
+
+        mealName = intent.getStringExtra(HomeFragment.CATEGORY_NAME)!!
         categoryMealsViewModel.getMealsByCategory(mealName)
         observeMeals()
 
+        onMealClick()
+    }
+
+    private fun onMealClick() {
+        categoryMealsAdapter.onItemClick = { meal ->
+            val intent = Intent(this, MealActivity::class.java)
+            intent.putExtra(HomeFragment.MEAL_ID, meal.idMeal)
+            intent.putExtra(HomeFragment.MEAL_NAME, meal.strMeal)
+            intent.putExtra(HomeFragment.MEAL_THUMB, meal.strMealThumb)
+            startActivity(intent)
+        }
     }
 
     private fun observeMeals() {

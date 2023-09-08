@@ -8,8 +8,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.androidfoodapp.databinding.MealItemBinding
 import com.example.androidfoodapp.pojo.Meal
+import com.example.androidfoodapp.pojo.MealsByCategory
 
 class MealsAdapter : RecyclerView.Adapter<MealsAdapter.ViewHolder>() {
+
+    var onItemClick: ((Meal) -> Unit)? = null
 
     inner class ViewHolder(val binding: MealItemBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -49,6 +52,10 @@ class MealsAdapter : RecyclerView.Adapter<MealsAdapter.ViewHolder>() {
             .into(holder.binding.imgMeal)
 
         holder.binding.tvMealName.text = meal.strMeal
+
+        holder.itemView.setOnClickListener {
+            onItemClick?.invoke(meal)
+        }
     }
 
 

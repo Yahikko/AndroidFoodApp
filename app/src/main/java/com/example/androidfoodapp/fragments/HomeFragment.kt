@@ -66,12 +66,11 @@ class HomeFragment : Fragment() {
         homeViewModel.getPopularItems()
         observePopularItems()
         onPopularItemClick()
+        onPopularItemLongClick()
 
         homeViewModel.getCategories()
         observeCategoriesLiveData()
         onCategoryClick()
-
-        onPopularItemLongClick()
 
         onSearchIconClick()
     }
