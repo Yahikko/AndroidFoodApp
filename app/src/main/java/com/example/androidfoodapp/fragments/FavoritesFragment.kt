@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidfoodapp.activities.MainActivity
-import com.example.androidfoodapp.adapters.FavoriteMealsAdapter
+import com.example.androidfoodapp.adapters.MealsAdapter
 import com.example.androidfoodapp.databinding.FragmentFavoritesBinding
 import com.example.androidfoodapp.viewModel.HomeViewModel
 import com.google.android.material.snackbar.Snackbar
@@ -19,7 +19,7 @@ class FavoritesFragment : Fragment() {
     private lateinit var binding: FragmentFavoritesBinding
     private lateinit var homeViewModel: HomeViewModel
 
-    private lateinit var favoritesAdapter: FavoriteMealsAdapter
+    private lateinit var favoritesAdapter: MealsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,7 +66,7 @@ class FavoritesFragment : Fragment() {
     }
 
     private fun prepareRecyclerView() {
-        favoritesAdapter = FavoriteMealsAdapter()
+        favoritesAdapter = MealsAdapter()
         binding.rvFavorites.apply {
             layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
             adapter = favoritesAdapter

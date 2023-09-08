@@ -1,5 +1,6 @@
 package com.example.androidfoodapp.viewModel
 
+import android.icu.text.StringSearch
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -22,11 +23,13 @@ class HomeViewModel(
     private val mealDatabase: MealDatabase
 ) : ViewModel() {
 
+    private val favoritesMealsLiveData = mealDatabase.mealDao().getAllMeals()
+
     private val randomMealLiveData = MutableLiveData<Meal>()
     private val popularItemsLiveData = MutableLiveData<List<MealsByCategory>>()
     private val categoriesLiveData = MutableLiveData<List<Category>>()
-    private val favoritesMealsLiveData = mealDatabase.mealDao().getAllMeals()
     private val bottomSheetLiveData = MutableLiveData<Meal>()
+    private val searchedMealsLiveData = MutableLiveData<List<Meal>>()
 
     fun getMealById(id: String) {
         RetrofitInstance.api.getMealDetails(id).enqueue(object : Callback<MealList> {
@@ -99,6 +102,23 @@ class HomeViewModel(
             mealDatabase.mealDao().deleteMeal(meal)
         }
     }
+
+    fun searchMeals(searchQuery: String) {
+        RetrofitInstance.api.searchMeals(searchQuery).enqueue(object : Callback<MealList> {
+            override fun onResponse(call: Call<MealList>, response: Response<MealList>) {
+                val mealsList = response.body()?.meals
+                mealsList.let {
+                    searchedMealsLiveData.postValue(it)
+                }
+            }
+
+            override fun onFailure(call: Call<MealList>, t: Throwable) {
+                Log.d("HomeFragment", t.message.toString())
+            }
+        })
+    }
+
+    fun observeSearchedMealsLiveData(): LiveData<List<Meal>> = searchedMealsLiveData
 
     fun observeBottomSheetLiveData(): LiveData<Meal> = bottomSheetLiveData
 

@@ -5,4 +5,5 @@
     <color name="primary">#FFF52C56</color>
     <color name="accent">#FFF52C56</color>
     <color name="g_black">#FF33405F</color>
+    <color name="g_gray">#E6E6E6</color>
 </resources>
